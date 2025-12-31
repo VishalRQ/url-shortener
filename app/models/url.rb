@@ -6,8 +6,8 @@ class Url < ApplicationRecord
   has_many :click_records, class_name: "Click", dependent: :destroy
 
   def short_url
-    # "#{ENV['APP_HOST']}/s/#{short_code}"
-    Rails.application.routes.url_helpers.short_url(short_code: short_code, host: Rails.application.config.default_host)
+    "#{ENV['APP_HOST']}/s/#{short_code}"
+    # Rails.application.routes.url_helpers.short_url(short_code: short_code, host: Rails.application.config.default_host)
   end
 
   def to_param
