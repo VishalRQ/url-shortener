@@ -3,9 +3,11 @@ class Url < ApplicationRecord
   validates :short_code, uniqueness: true
 
   before_validation :generate_short_code, on: :create
+  has_many :click_records, class_name: "Click", dependent: :destroy
 
   def short_url
-    "http://localhost:3000/s/#{short_code}"
+    # "#{ENV['APP_HOST']}/s/#{short_code}"
+    Rails.application.routes.url_helpers.short_url(short_code: short_code, host: Rails.application.config.default_host)
   end
 
   def to_param
