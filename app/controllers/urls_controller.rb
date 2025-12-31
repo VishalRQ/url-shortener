@@ -23,12 +23,17 @@ class UrlsController < ApplicationController
     @url = Url.find_by!(short_code: params[:short_code])
   end
 
-
   def redirect
-    @url = Url.find_by!(short_code: params[:short_code])
-    @url.increment!(:clicks)
-    redirect_to @url.original_url, allow_other_host: true
+  @url = Url.find_by!(short_code: params[:short_code])
+
+  @url.click_records.create(
+    ip: request.remote_ip,
+    user_agent: request.user_agent
+  )
+
+  redirect_to @url.original_url, allow_other_host: true
   end
+
 
   private
 

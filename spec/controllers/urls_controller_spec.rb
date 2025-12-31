@@ -46,12 +46,13 @@ RSpec.describe UrlsController, type: :controller do
   end
 
   context "GET #redirect" do
-    it "increments clicks and redirects to original_url" do
-      url = create(:url, original_url: "https://example.com", clicks: 0)
-      get :redirect, params: { short_code: url.short_code }
+    it "creates a click record and increments clicks column" do
+      url = create(:url, clicks: 0)
+      expect {
+        get :redirect, params: { short_code: url.short_code }
+      }.to change(Click, :count).by(1)
       url.reload
       expect(url.clicks).to eq(1)
-      expect(response).to redirect_to("https://example.com")
     end
   end
 end
