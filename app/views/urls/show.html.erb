@@ -1,0 +1,8 @@
+<h1>Shortened URL</h1>
+
+<p>Your shortened URL is:</p>
+<p><%= link_to @url.short_url, @url.short_url, target: "_blank", rel: "noopener" %></p>
+
+<p>It redirects to:</p>
+<p><%= link_to @url.original_url, @url.original_url, target: "_blank", rel: "noopener" %></p>
+<p>Total Clicks: <%= @url.clicks %></p>
