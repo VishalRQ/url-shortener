@@ -1,0 +1,19 @@
+<h1>Shorten a URL</h1>
+<%= form_with model: @url, local: true, data: { turbo: false } do |form| %>
+    <% if @url.errors.any? %>
+      <div class="error-messages">
+        <% @url.errors.full_messages.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+      </div>
+    <% end %>
+    
+  <div>
+    <%= form.label :original_url %>
+    <%= form.text_field :original_url, required: true %>
+  </div>
+
+  <div>
+    <%= form.submit "Shorten URL" %>
+  </div>
+<% end %>
