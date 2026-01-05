@@ -4,6 +4,7 @@ class UrlsController < ApplicationController
 
   def index
     retrieve_urls
+    @shortcode_stats = ShortcodeViewer.all
   end
 
   def new
@@ -15,6 +16,7 @@ class UrlsController < ApplicationController
     if @url.save
       redirect_to @url, notice: "Short URL created successfully."
     else
+      flash.now[:alert] = "Invalid URL"
       render :new
     end
   end
@@ -33,6 +35,7 @@ class UrlsController < ApplicationController
 
   redirect_to @url.original_url, allow_other_host: true
   end
+
 
 
   private

@@ -1,17 +1,33 @@
-<%= link_to "Create New Short URL", new_url_path %>
-
+<div class="flex justify-between items-center mb-4 mt-4 ml-10 mr-10 bg-green-200 p-4 rounded">
+  <h1 class="text-2xl font-bold">URL shortener</h1>
+  <%= link_to "Create New Short URL", new_url_path, class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+</div>
 
 <% if @urls.any? %>
-  <ul>
+  <ul class=" pl-2 mr-10">
     <% @urls.each do |url| %>
-      <li>
+      <li class="ml-10 mr-5 mb-1 p-2 flex flex-row justify-between  hover:bg-blue-900 transition">
         <p>
-          Shortened URL: <%= link_to url.short_url, url.short_url, quote: false %>
+          Shortened URL: <span class ="text-blue-600"><%= link_to url.short_url, url.short_url, quote: false %></span>
         </p>
-        <p>
+        <div class = "bg-blue-500 text-white p-2 rounded hover:bg-blue-900 transition" >
           <%= button_to "View Details", url_path(url), method: :get %>
-        </p>
+        </div>
       </li>
     <% end %>
   </ul>
+<% end %>
+
+<% if @shortcode_stats.any? %>
+  <div class="ml-10 mr-10 mt-4">
+    <h2 class="text-xl font-bold mb-2">Shortcode Statistics</h2>
+    <ul class="pl-2">
+      <% @shortcode_stats.each do |stat| %>
+        <li class="ml-10 mr-5 mb-1 p-2 flex flex-row justify-between">
+          <%= link_to stat.short_code, url_path(stat.short_code) %>
+          <p>Clicks: <%= stat.clicks %></p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
