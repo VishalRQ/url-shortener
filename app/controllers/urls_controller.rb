@@ -4,7 +4,6 @@ class UrlsController < ApplicationController
 
 
   def index
-    retrieve_urls
     @shortcode_stats = ShortcodeViewer.all
   end
 
@@ -23,12 +22,9 @@ class UrlsController < ApplicationController
   end
 
   def show
-    retrieve_url
   end
 
   def redirect
-  retrieve_url
-
   @url.click_records.create(
     ip: request.remote_ip,
     user_agent: request.user_agent
