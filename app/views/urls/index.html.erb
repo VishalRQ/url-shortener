@@ -1,0 +1,17 @@
+<%= link_to "Create New Short URL", new_url_path %>
+
+
+<% if @urls.any? %>
+  <ul>
+    <% @urls.each do |url| %>
+      <li>
+        <p>
+          Shortened URL: <%= link_to url.short_url, url.short_url, quote: false %>
+        </p>
+        <p>
+          <%= button_to "View Details", url_path(url), method: :get %>
+        </p>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
