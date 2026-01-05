@@ -1,9 +1,11 @@
 class UrlsController < ApplicationController
-  before_action :retrieve_urls
+  before_action :retrieve_urls, only: [ :index ]
+  before_action :retrieve_url, only: [ :show, :redirect ]
 
 
   def index
     retrieve_urls
+    @shortcode_stats = ShortcodeViewer.all
   end
 
   def new
@@ -15,16 +17,17 @@ class UrlsController < ApplicationController
     if @url.save
       redirect_to @url, notice: "Short URL created successfully."
     else
+      flash.now[:alert] = "Invalid URL"
       render :new
     end
   end
 
   def show
-    @url = Url.find_by!(short_code: params[:short_code])
+    retrieve_url
   end
 
   def redirect
-  @url = Url.find_by!(short_code: params[:short_code])
+  retrieve_url
 
   @url.click_records.create(
     ip: request.remote_ip,
@@ -35,7 +38,11 @@ class UrlsController < ApplicationController
   end
 
 
+
   private
+  def retrieve_url
+    @url = Url.find_by!(short_code: params[:short_code])
+  end
 
   def retrieve_urls
     @urls = Url.all
