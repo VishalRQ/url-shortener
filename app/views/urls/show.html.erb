@@ -1,10 +1,15 @@
-<h1>Shortened URL</h1>
+<h1 class="text-2xl font-bold mb-4">Shortened URL</h1>
 
-<p>Your shortened URL is:</p>
-<p><%= link_to @url.short_url, @url.short_url, target: "_blank", rel: "noopener" %></p>
+<div class="m-4 p-4 bg-green-100 rounded shadow-md">
+<p class="font-bold text-xl mb-2">Total Clicks: <%= @url.clicks %></p>
+<div class="m-4">
+    <p class="font-bold text-m">Your shortened URL is:</p>
+    <p class="text-blue-600 hover:text-blue-800 transition"><%= link_to @url.short_url, @url.short_url, target: "_blank", rel: "noopener" %></p>
+</div>
+<div class="m-4">
+    <p class="font-bold text-m">It redirects to:</p>
+    <p class="text-blue-600 hover:text-blue-800 transition"><%= link_to @url.original_url, @url.original_url, target: "_blank", rel: "noopener" %></p>
+</div>
 
-<p>It redirects to:</p>
-<p><%= link_to @url.original_url, @url.original_url, target: "_blank", rel: "noopener" %></p>
-<p>Total Clicks: <%= @url.clicks %></p>
-
-<%= button_to 'Back', urls_path, method: :get %>
+<%= button_to 'Back', urls_path, method: :get, class: "bg-blue-600 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded" %>
+</div>

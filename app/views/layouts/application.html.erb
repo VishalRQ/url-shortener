@@ -24,6 +24,14 @@
   </head>
 
   <body>
+    <div id="toast-container">
+      <% flash.each do |type, message| %>
+        <div class="toast <%= type %>">
+          <%= message %>
+        </div>
+      <% end %>
+    </div>
+
     <%= yield %>
   </body>
 </html>
