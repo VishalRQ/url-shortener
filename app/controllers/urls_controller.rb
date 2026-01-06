@@ -1,9 +1,9 @@
 class UrlsController < ApplicationController
-  before_action :retrieve_urls
+  before_action :retrieve_urls, only: [ :index ]
+  before_action :retrieve_url, only: [ :show, :redirect ]
 
 
   def index
-    retrieve_urls
     @shortcode_stats = ShortcodeViewer.all
   end
 
@@ -22,12 +22,9 @@ class UrlsController < ApplicationController
   end
 
   def show
-    @url = Url.find_by!(short_code: params[:short_code])
   end
 
   def redirect
-  @url = Url.find_by!(short_code: params[:short_code])
-
   @url.click_records.create(
     ip: request.remote_ip,
     user_agent: request.user_agent
@@ -39,6 +36,9 @@ class UrlsController < ApplicationController
 
 
   private
+  def retrieve_url
+    @url = Url.find_by!(short_code: params[:short_code])
+  end
 
   def retrieve_urls
     @urls = Url.all
